@@ -1,0 +1,11 @@
+:host {
+  contain: content;
+  display: flex;
+  max-width: 100%;
+}
+
+:host *,
+:host *:before,
+:host *:after {
+  box-sizing: border-box;
+}
