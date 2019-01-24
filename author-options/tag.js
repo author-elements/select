@@ -15,11 +15,11 @@ class AuthorOptionsElement extends HTMLElement {
       displayOptions: {
         readonly: true,
         get: () => {
-          let ChassisHTMLOptionsCollection = this.PRIVATE.generateChassisHTMLOptionsCollectionConstructor()
+          let AuthorHTMLOptionsCollection = this.PRIVATE.generateAuthorHTMLOptionsCollectionConstructor()
           let array = this.options.map(option => option.displayElement)
           let addFunction = (element, before) => this.addOption(this.PRIVATE.generateOptionObject(element), before)
           let removeFunction = index => this.removeOptionByIndex(index)
-          return new ChassisHTMLOptionsCollection(array, this.selectedIndex, addFunction, removeFunction)
+          return new AuthorHTMLOptionsCollection(array, this.selectedIndex, addFunction, removeFunction)
         }
       },
 
@@ -59,8 +59,8 @@ class AuthorOptionsElement extends HTMLElement {
         readonly: true,
         get: () => {
           let nodes = this.querySelectorAll('[selected]')
-          let ChassisHTMLCollection = this.PRIVATE.generateChassisHTMLCollectionConstructor()
-          return new ChassisHTMLCollection(nodes)
+          let AuthorHTMLCollection = this.PRIVATE.generateAuthorHTMLCollectionConstructor()
+          return new AuthorHTMLCollection(nodes)
         }
       },
 
@@ -181,10 +181,10 @@ class AuthorOptionsElement extends HTMLElement {
         return comparator.filter(option => !comparable.includes(option))
       },
 
-      generateChassisHTMLCollectionConstructor () {
+      generateAuthorHTMLCollectionConstructor () {
         let _p = new WeakMap()
 
-        return class ChassisHTMLCollection {
+        return class AuthorHTMLCollection {
           constructor (arr) {
             _p.set(this, {arr})
             arr.forEach((node, index) => {
@@ -227,15 +227,15 @@ class AuthorOptionsElement extends HTMLElement {
           }
 
           [Symbol.toStringTag] () {
-            return 'ChassisHTMLCollection'
+            return 'AuthorHTMLCollection'
           }
         }
       },
 
-      generateChassisHTMLOptionsCollectionConstructor: () => {
+      generateAuthorHTMLOptionsCollectionConstructor: () => {
         let _p = new WeakMap()
 
-        let ChassisHTMLOptionsCollection = class ChassisHTMLOptionsCollection extends this.PRIVATE.ChassisHTMLCollection() {
+        let AuthorHTMLOptionsCollection = class AuthorHTMLOptionsCollection extends this.PRIVATE.generateAuthorHTMLCollectionConstructor() {
           constructor (arr, selectedIndex = -1, add, remove) {
             super(arr)
             this.selectedIndex = selectedIndex
@@ -246,11 +246,11 @@ class AuthorOptionsElement extends HTMLElement {
           }
 
           [Symbol.toStringTag] () {
-            return 'ChassisHTMLOptionsCollection'
+            return 'AuthorHTMLOptionsCollection'
           }
         }
 
-        return ChassisHTMLOptionsCollection
+        return AuthorHTMLOptionsCollection
       },
 
       generateOptgroup: optgroup => {
@@ -297,9 +297,8 @@ class AuthorOptionsElement extends HTMLElement {
 
       generateOptionConstructor: () => {
         let _p = new WeakMap()
-        let selectionHandler = this.PRIVATE.optionSelectionHandler
 
-        return class ChassisOptionObject {
+        return class AuthorOptionObject {
           constructor (parent, key, sourceElement, displayElement) {
             this.key = key
             this.form = parent.form
@@ -450,7 +449,6 @@ class AuthorOptionsElement extends HTMLElement {
         let {
           cherryPicked,
           getCurrentSelection,
-          lastSelectedIndex,
           Selection,
           selectionStartIndex
         } = this.PRIVATE
@@ -485,7 +483,7 @@ class AuthorOptionsElement extends HTMLElement {
           cherryPicked,
           diffSelections,
           getCurrentSelection,
-          generateChassisHTMLCollectionConstructor,
+          generateAuthorHTMLCollectionConstructor,
           handleClickSelection,
           handleKeyboardSelection,
           Selection
@@ -511,7 +509,7 @@ class AuthorOptionsElement extends HTMLElement {
           let detail = {
             options: selection.options,
             previous: this.selectedOptions,
-            next: new (generateChassisHTMLCollectionConstructor())(selection.displayElements)
+            next: new (generateAuthorHTMLCollectionConstructor())(selection.displayElements)
           }
 
           let cb = () => {
@@ -549,7 +547,7 @@ class AuthorOptionsElement extends HTMLElement {
               let index = this.selectedIndex
 
               this.deselectAll()
-              this.emit('option.selected', {index})
+              this.emit('option.selected', { index })
             }
 
             break
