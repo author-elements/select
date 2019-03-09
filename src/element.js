@@ -1,6 +1,6 @@
-class AuthorSelectElement extends HTMLElement {
+class AuthorSelectElement extends AuthorBaseElement(HTMLElement) {
   constructor () {
-    super()
+    super(`{{TEMPLATE-STRING}}`)
 
     this.UTIL.defineProperties({
       form: {
@@ -60,15 +60,18 @@ class AuthorSelectElement extends HTMLElement {
       },
 
       willValidate: {
-        readonly: true
+        readonly: true,
+        get: () => this.sourceElement.willValidate
       },
 
       validationMessage: {
-        readonly: true
+        readonly: true,
+        get: () => this.sourceElement.validationMessage
       },
 
       validity: {
-        readonly: true
+        readonly: true,
+        get: () => this.sourceElement.validity
       }
     })
 
@@ -180,6 +183,12 @@ class AuthorSelectElement extends HTMLElement {
 
         this.emit('options.selected', evt.detail.options, this.selectedOptionsElement)
 
+        if (this.checkValidity()) {
+          this.removeAttribute('invalid')
+        } else {
+          this.setAttribute('invalid', '')
+        }
+
         if (afterChange && typeof afterChange === 'function') {
           afterChange(evt.detail.previous, this.selectedOptions)
         }
@@ -222,7 +231,9 @@ class AuthorSelectElement extends HTMLElement {
         this.UTIL.printToConsole(`"size" attribute is not supported. Please use CSS to set the height of the options panel instead.`, 'warning')
       },
 
-      toggleHandler: evt => this.open = !this.open
+      toggleHandler: evt => this.open = !this.open,
+
+      validationHandler: evt => this.emit('invalid')
     })
 
     this.UTIL.registerListeners(this, {
@@ -258,6 +269,18 @@ class AuthorSelectElement extends HTMLElement {
 
           default: return
         }
+      },
+
+      connected: () => {
+        this.sourceElement.addEventListener('invalid', this.PRIVATE.validationHandler)
+
+        if (!this.checkValidity()) {
+          this.setAttribute('invalid', '')
+        }
+      },
+
+      disconnected: () => {
+        this.sourceElement.removeEventListener('invalid', this.PRIVATE.validationHandler)
       },
 
       blur: this.PRIVATE.blurHandler,
@@ -301,7 +324,7 @@ class AuthorSelectElement extends HTMLElement {
   }
 
   get selectedIndex () {
-    return this.optionsElement ? this.optionsElement.selectedIndex : null
+    return this.optionsElement ? this.optionsElement.selectedIndex : -1
   }
 
   set selectedIndex (index) {
@@ -423,6 +446,16 @@ class AuthorSelectElement extends HTMLElement {
     this.optionsElement.removeOptionByIndex(index)
   }
 
+  reportValidity () {
+    let isValid = this.sourceElement.checkValidity()
+
+    if (isValid) {
+      this.removeAttribute('invalid')
+    } else {
+      this.setAttribute('invalid', '')
+    }
+  }
+
   setCustomValidity (string) {
     this.sourceElement.setCustomValidity(string)
   }
@@ -433,3 +466,5 @@ class AuthorSelectElement extends HTMLElement {
 }
 
 customElements.define('author-select', AuthorSelectElement)
+
+export default AuthorSelectElement
