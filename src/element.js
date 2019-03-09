@@ -385,11 +385,11 @@ class AuthorSelectElement extends AuthorBaseElement(HTMLElement) {
 
     if (select.children.length > 0) {
       if (!this.multiple) {
-        for (let option of select.children) {
+        [...select.children].forEach(option => {
           if (option.index !== select.selectedIndex) {
             option.removeAttribute('selected')
           }
-        }
+        })
       }
 
       this.optionsElement.addOptions(select.children)
