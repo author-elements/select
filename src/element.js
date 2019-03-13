@@ -183,11 +183,11 @@ class AuthorSelectElement extends AuthorBaseElement(HTMLElement) {
 
         this.emit('options.selected', evt.detail.options, this.selectedOptionsElement)
 
-        if (this.checkValidity()) {
-          this.removeAttribute('invalid')
-        } else {
-          this.setAttribute('invalid', '')
-        }
+        // if (this.checkValidity()) {
+        //   this.removeAttribute('invalid')
+        // } else {
+        //   this.setAttribute('invalid', '')
+        // }
 
         if (afterChange && typeof afterChange === 'function') {
           afterChange(evt.detail.previous, this.selectedOptions)
@@ -231,9 +231,9 @@ class AuthorSelectElement extends AuthorBaseElement(HTMLElement) {
         this.UTIL.printToConsole(`"size" attribute is not supported. Please use CSS to set the height of the options panel instead.`, 'warning')
       },
 
-      toggleHandler: evt => this.open = !this.open,
+      toggleHandler: evt => this.open = !this.open//,
 
-      validationHandler: evt => this.emit('invalid')
+      // validationHandler: evt => this.emit('invalid')
     })
 
     this.UTIL.registerListeners(this, {
@@ -271,17 +271,17 @@ class AuthorSelectElement extends AuthorBaseElement(HTMLElement) {
         }
       },
 
-      connected: () => {
-        this.sourceElement.addEventListener('invalid', this.PRIVATE.validationHandler)
+      // connected: () => {
+      //   this.sourceElement.addEventListener('invalid', this.PRIVATE.validationHandler)
+      //
+      //   if (!this.checkValidity()) {
+      //     this.setAttribute('invalid', '')
+      //   }
+      // },
 
-        if (!this.checkValidity()) {
-          this.setAttribute('invalid', '')
-        }
-      },
-
-      disconnected: () => {
-        this.sourceElement.removeEventListener('invalid', this.PRIVATE.validationHandler)
-      },
+      // disconnected: () => {
+      //   this.sourceElement.removeEventListener('invalid', this.PRIVATE.validationHandler)
+      // },
 
       blur: this.PRIVATE.blurHandler,
       focus: this.PRIVATE.focusHandler,
