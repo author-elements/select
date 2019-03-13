@@ -92,9 +92,9 @@ class AuthorSelectElement extends AuthorBaseElement(HTMLElement) {
 
     this.UTIL.definePrivateMethods({
       addOpenListeners: () => {
-        document.body.addEventListener('mousedown', this.PRIVATE.bodyMousedownHandler)
-        document.body.addEventListener('touchcancel', this.PRIVATE.bodyMousedownHandler)
-        document.body.addEventListener('touchend', this.PRIVATE.bodyMousedownHandler)
+        document.addEventListener('mousedown', this.PRIVATE.bodyMousedownHandler)
+        document.addEventListener('touchcancel', this.PRIVATE.bodyMousedownHandler)
+        document.addEventListener('touchend', this.PRIVATE.bodyMousedownHandler)
       },
 
       blurHandler: evt => this.off('keydown', this.PRIVATE.keydownHandler),
@@ -195,9 +195,9 @@ class AuthorSelectElement extends AuthorBaseElement(HTMLElement) {
       },
 
       removeOpenListeners: () => {
-        document.body.removeEventListener('mousedown', this.PRIVATE.bodyMousedownHandler)
-        document.body.removeEventListener('touchcancel', this.PRIVATE.bodyMousedownHandler)
-        document.body.removeEventListener('touchend', this.PRIVATE.bodyMousedownHandler)
+        document.removeEventListener('mousedown', this.PRIVATE.bodyMousedownHandler)
+        document.removeEventListener('touchcancel', this.PRIVATE.bodyMousedownHandler)
+        document.removeEventListener('touchend', this.PRIVATE.bodyMousedownHandler)
       },
 
       stateChangeHandler: evt => {
