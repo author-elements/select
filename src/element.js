@@ -345,7 +345,7 @@ class AuthorSelectElement extends AuthorBaseElement(HTMLElement) {
   }
 
   add (option, index) {
-    this.optionsElement.add(option, index)
+    this.optionsElement.addOption(option, index)
   }
 
   checkValidity () {
