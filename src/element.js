@@ -459,10 +459,6 @@ class AuthorSelectElement extends AuthorBaseElement(HTMLElement) {
   setCustomValidity (string) {
     this.sourceElement.setCustomValidity(string)
   }
-
-  [Symbol.toStringTag] () {
-    return 'AuthorSelectElement'
-  }
 }
 
 customElements.define('author-select', AuthorSelectElement)

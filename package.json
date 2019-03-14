@@ -1,6 +1,6 @@
 {
   "name": "@author.io/element-select",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "author-select custom element (web component).",
   "main": "dist/author-select.min.js",
   "scripts": {
@@ -79,6 +79,7 @@
       "rollup*.js"
     ],
     "globals": [
+      "AuthorSelectElement",
       "customElements",
       "KeyboardEvent",
       "crypto",
