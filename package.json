@@ -1,6 +1,6 @@
 {
   "name": "@author.io/element-select",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "author-select custom element (web component).",
   "main": "dist/author-select.min.js",
   "scripts": {
@@ -80,6 +80,11 @@
     ],
     "globals": [
       "AuthorSelectElement",
+      "AuthorSelectedOptionsElement",
+      "AuthorOptionsElement",
+      "AuthorOptionElement",
+      "AuthorOptgroupLabelElement",
+      "AuthorOptgroupElement",
       "customElements",
       "KeyboardEvent",
       "crypto",
