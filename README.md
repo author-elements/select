@@ -29,7 +29,7 @@ There are 4 versions of this element:
 
 You only need to choose one of these files. If you need to support Internet Explorer, older versions of Chrome/Firefox/Safari, then you likely need the ES5 version. Each version has it's own source map, so it's always possible to trace activity back to a specific code block in the source.
 
-The best way to use `author-select` is in combination with [author-control](https://github.com/author-elements/control). Placing a `select` tag inside an `author-control` will automatically generate a fully-functional `author-select` menu and pair it with a label if provided.
+The simplest way to use `author-select` is in combination with [author-control](https://github.com/author-elements/control). This combination makes it simple to create totally stylable single or multiple-select menus. Placing a `select` tag inside an `author-control` will automatically generate a fully-functional `author-select` menu and pair it with a label if provided.
 
 *Via Global CDN*
 
