@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="lib/prismjs/prism.css">
 
+    <script src="https://cdn.author.io/ngn/latest/legacy.complete.min.js"></script>
+    <script src="https://cdn.author.io/ngnx/latest/complete.min.js"></script>
+
     <script src="webcomponents/author-base.js"></script>
-    <script src="webcomponents/author-cycle.js"></script>
     <script src="webcomponents/author-control.js"></script>
     <script src="webcomponents/author-selected-options.js"></script>
     <script src="webcomponents/author-options.js"></script>
@@ -20,10 +22,10 @@
     <script src="webcomponents/author-select.js"></script>
   </head>
 
-  <body class="demo">
+  <body class="author-select" data-theme="dark">
     <header>
       <div class="width constraint">
-        <h1>author-select Element Demo</h1>
+        <h1>&lt;author-select&gt; Element Demo</h1>
         <aside class="links">
           <h2 class="hidden">Navigation</h2>
           <a href="https://author.io" target="_blank">author.io</a>
@@ -33,31 +35,37 @@
 
     <main>
       <div class="content">
-        <section class="example">
-          <div class="output">
-            <author-control>
-              <label>Basic Select Menu</label>
-              <select placeholder="Select an Option">
-                <option value="Option 1">Option 1</option>
-                <option value="Option 2">Option 2</option>
-                <option value="Option 3">Option 3</option>
+        <author-control class="theme">
+          <label>Theme</label>
+          <select placeholder="Select a Theme">
+            <option value="1">Default</option>
+            <option value="2">Dark</option>
+            <option value="3">Other</option>
+          </select>
+        </author-control>
 
-                <optgroup label="Grouped Options">
-                  <option value="Grouped Option 1">Grouped Option 1</option>
-                  <option value="Grouped Option 2">Grouped Option 2</option>
-                  <option value="Grouped Option 3">Grouped Option 3</option>
-                </optgroup>
-              </select>
-            </author-control>
-          </div>
+        <section class="demo">
+          <author-control class="default">
+            <label>Basic Select Menu</label>
+            <select placeholder="Select an Option">
+              <option value="Option 1">Option 1</option>
+              <option value="Option 2">Option 2</option>
+              <option value="Option 3">Option 3</option>
 
-          <div class="toolbar">
-            <button>Multiple</button>
-          </div>
+              <optgroup label="Grouped Options">
+                <option value="Grouped Option 1">Grouped Option 1</option>
+                <option value="Grouped Option 2">Grouped Option 2</option>
+                <option value="Grouped Option 3">Grouped Option 3</option>
+              </optgroup>
+            </select>
+          </author-control>
+
+          <button>Multiple</button>
         </section>
       </div>
     </main>
   </body>
 
   <script src="lib/prismjs/prism.js"></script>
+  <script src="js/index.js"></script>
 </html>

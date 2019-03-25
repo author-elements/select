@@ -1,11 +1,7 @@
 @chassis init;
 @chassis include anchor buttons form-controls;
 
-.demo {
-  & author-control .label-wrapper {
-    background: blue;
-  }
-
+.author-select {
   & pre {
     @chassis apply inline-block margin-bottom padding;
     background: var(--grey-n00);
@@ -22,6 +18,10 @@
     & li {
       margin-left: 1em;
     }
+  }
+
+  & .theme {
+    @chassis font-size small;
   }
 
   & > header {
@@ -65,64 +65,8 @@
     }
   }
 
-  & .example {
-    border: 1px solid var(--grey-n04);
-
-    & pre {
-      &:first-child {
-        margin-top: 0;
-      }
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-
-    & .description {
-      @chassis apply inline-block padding-x;
-    }
-
-    & .output {
-      @chassis apply inline-block margin-top padding-x;
-
-      & author-control {
-        margin-bottom: 0;
-      }
-
-      &:first-child {
-        margin-top: 0;
-      }
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-
-    & .toolbar {
-      display: flex;
-      justify-content: flex-end;
-      @chassis apply inline-block margin-top padding-x;
-
-      & button {
-        @chassis apply inline-block margin-left;
-        @chassis font-size small;
-
-        &:first-child {
-          margin-left: 0;
-        }
-      }
-
-      &:last-child {
-        padding-bottom: var(--inline-block-padding-y);
-      }
-    }
-
-    & > :first-child:not(pre) {
-      padding-top: var(--inline-block-padding-x);
-    }
-
-    & > :last-child:not(pre) {
-      padding-bottom: var(--inline-block-padding-x);
-    }
+  &[data-theme="dark"] {
+    background: var(--grey-n10);
+    color: white;
   }
 }

@@ -52,7 +52,7 @@ The simplest way to use `author-select` is in combination with [author-control](
 
 `npm install @author.io/element-select -S`
 
-3. If using with `author-control`, install it:
+3. If using with [`author-control`](https://github.com/author-elements/control)
 
 `npm install @author.io/element-control -S`
 
@@ -92,11 +92,11 @@ If using without `author-control`, lay out `author-select` manually using the fo
   <!-- <slot name="afterbegin"></slot> -->
 
   <!-- <slot name="beforeselectedoptions"></slot> -->
-  <author-selected-options></author-selected-options>
+  <author-selected-options slot="selectedoptions"></author-selected-options>
   <!-- <slot name="afterselectedoptions"></slot> -->
 
   <!-- <slot name="beforeoptions"></slot> -->
-  <author-options>
+  <author-options slot="options">
     <author-option value="Option 1">Option 1</author-option>
     <author-option value="Option 2">Option 2</author-option>
     <author-option value="Option 3">Option 3</author-option>
