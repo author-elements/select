@@ -12,6 +12,12 @@ class Builder extends ProductionLine {
     this.devMode = false
   }
 
+  copyComponent (cb) {
+    fs.copySync(this.paths.component, this.outputDirectory('webcomponents'))
+
+    cb()
+  }
+
   copyCustomElements (cb) {
     this.walk(this.paths.authorElements).forEach(dir => {
       let filepath = path.join(dir, 'dist')
@@ -83,6 +89,7 @@ class Builder extends ProductionLine {
     this.clean()
     // this.copyAssets(true)
     this.addTask('Copy Libraries', next => this.copyLibs(next))
+    this.addTask('Copy Component', next => this.copyComponent(next))
     this.addTask('Copy Custom Elements', next => this.copyCustomElements(next))
     this.buildHTML()
     this.addTask('Build JavaScript', next => this.processJavascript(!devMode, next))
@@ -120,6 +127,7 @@ builder.paths = {
   javascript: path.join(builder.SOURCE, 'js', '/**/*.js'),
   css: path.join(builder.SOURCE, 'css', '/**/*.css'),
   lib: path.join(builder.SOURCE, 'lib'),
+  component: path.resolve('..', 'dist'),
   authorElements: './node_modules/@author.io/element-*'
 }
 
