@@ -1,6 +1,6 @@
 // Copyright (c) 2019 Author.io. MIT licensed.
 // @author.io/element-select v1.0.10 available at github.com/author-elements/select
-// Last Build: 3/27/2019, 12:18:12 AM
+// Last Build: 3/27/2019, 12:32:07 AM
 var AuthorSelectElement = (function () {
   'use strict';
 
@@ -20,14 +20,6 @@ var AuthorSelectElement = (function () {
       super(`<template><style>@charset "UTF-8"; :host{display:inline-block;max-width:100%}:host *,:host :after,:host :before{box-sizing:border-box}author-select{display:inline-block;max-width:100%}author-select *,author-select :after,author-select :before{box-sizing:border-box}</style><slot name="afterbegin"></slot><slot name="beforeselectedoptions"></slot><slot name="selectedoptions"></slot><slot name="afterselectedoptions"></slot><slot name="beforeoptions"></slot><slot name="options"></slot><slot name="afteroptions"></slot><slot name="beforeend"></slot></template>`);
 
       this.UTIL.defineProperties({
-        middleware: {
-          private: true,
-          default: {
-            beforeChange: null,
-            afterChange: null
-          }
-        },
-
         selectedOptionsElement: {
           readonly: true,
           get: () => this.querySelector('author-selected-options')
@@ -37,6 +29,10 @@ var AuthorSelectElement = (function () {
           readonly: true,
           get: () => this.multiple ? 'select-multiple' : 'select-one'
         }
+      });
+
+      this.UTIL.defineAttributes({
+        multiple: false
       });
 
       this.UTIL.registerListeners(this, {

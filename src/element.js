@@ -3,14 +3,6 @@ class AuthorSelectElement extends AuthorMenuElement {
     super(`{{TEMPLATE-STRING}}`)
 
     this.UTIL.defineProperties({
-      middleware: {
-        private: true,
-        default: {
-          beforeChange: null,
-          afterChange: null
-        }
-      },
-
       selectedOptionsElement: {
         readonly: true,
         get: () => this.querySelector('author-selected-options')
@@ -20,6 +12,10 @@ class AuthorSelectElement extends AuthorMenuElement {
         readonly: true,
         get: () => this.multiple ? 'select-multiple' : 'select-one'
       }
+    })
+
+    this.UTIL.defineAttributes({
+      multiple: false
     })
 
     this.UTIL.registerListeners(this, {
