@@ -50,7 +50,7 @@ class AuthorSelectElement extends AuthorMenuElement {
   }
 
   static get observedAttributes () {
-    return ['autofocus', 'disabled', 'multiple', 'name', 'open', 'placeholder', 'tabindex', 'size']
+    return [...AuthorMenuElement.observedAttributes, 'multiple']
   }
 
   clear () {
