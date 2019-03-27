@@ -1,6 +1,6 @@
 // Copyright (c) 2019 Author.io. MIT licensed.
-// @author.io/element-menu v1.0.4-beta.1 available at github.com/author-elements/menu
-// Last Build: 3/27/2019, 6:40:09 AM
+// @author.io/element-menu v1.0.4 available at github.com/author-elements/menu
+// Last Build: 3/27/2019, 6:56:19 AM
 var AuthorMenuElement = (function () {
   'use strict';
 
@@ -180,14 +180,6 @@ var AuthorMenuElement = (function () {
             this.removeAttribute('open');
           }
 
-          // if (this.selectedOptionsElement !== undefined) {
-          //   this.emit('options.selected', evt.detail.options, this.selectedOptionsElement)
-          // }
-          //
-          // if (this.inputElement !== undefined) {
-          //   this.emit('options.selected', evt.detail.options, this.inputElement)
-          // }
-
           // if (this.checkValidity()) {
           //   this.removeAttribute('invalid')
           // } else {
@@ -249,13 +241,6 @@ var AuthorMenuElement = (function () {
                 name: 'open',
                 value: this.open
               })
-
-            case 'placeholder':
-              if (this.selectedOptionsElement) {
-                this.selectedOptionsElement.update();
-              }
-
-              break
 
               case 'size':
                 return this.PRIVATE.throwSizeAttributeWarning()
@@ -368,16 +353,6 @@ var AuthorMenuElement = (function () {
         }
 
         this.optionsElement.addOptions(sourceElement.children);
-
-        if (sourceElement.localName === 'select') {
-          let selectedOptionsElement = document.createElement('author-selected-options');
-          selectedOptionsElement.slot = 'selectedoptions';
-          this.appendChild(selectedOptionsElement);
-
-          if (!this.multiple) {
-            this.selectedOptionsElement.add(this.optionsElement.options[this.selectedIndex]);
-          }
-        }
       }
 
       this.PRIVATE.injected = true;

@@ -1,6 +1,6 @@
 {
   "name": "@author.io/element-select",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "author-select custom element (web component).",
   "main": "dist/author-select.min.js",
   "scripts": {

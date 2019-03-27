@@ -1,6 +1,6 @@
 // Copyright (c) 2019 Author.io. MIT licensed.
-// @author.io/element-select v1.0.7 available at github.com/author-elements/select
-// Last Build: 3/26/2019, 11:45:17 PM
+// @author.io/element-select v1.0.8 available at github.com/author-elements/select
+// Last Build: 3/27/2019, 12:05:30 AM
 var AuthorSelectElement = (function () {
   'use strict';
 
@@ -9,7 +9,7 @@ var AuthorSelectElement = (function () {
               console.info('AuthorBaseElement is available at https://github.com/author-elements/base');
             }
           (function () {
-            let missingDependencies = Array.from(new Set(['author-selected-options','author-options','author-option','author-optgroup','author-optgroup-label'])).filter(dep => !customElements.get(dep));
+            let missingDependencies = Array.from(new Set(['author-menu','author-selected-options','author-options','author-option','author-optgroup','author-optgroup-label'])).filter(dep => !customElements.get(dep));
             if (missingDependencies.length > 0) {
               console.error(`[ERROR] <author-select> Required dependenc${missingDependencies.length !== 1 ? 'ies' : 'y'} not found: ${missingDependencies.map(d => `<${d}>`).join(', ').replace(', ' + missingDependencies[missingDependencies.length - 1], ' and ' + missingDependencies[missingDependencies.length - 1])}`);
               missingDependencies.forEach((dep, i) => console.info(`${i+1}. <${dep}> is available at ${'https://github.com/author-elements/select'.replace('select', dep.replace('author-', ''))}`));
@@ -39,10 +39,6 @@ var AuthorSelectElement = (function () {
         }
       });
 
-      this.UTIL.definePrivateMethods({
-
-      });
-
       this.UTIL.registerListeners(this, {
         'attribute.change': evt => {
           let { attribute, oldValue, newValue } = evt.detail;
@@ -51,11 +47,18 @@ var AuthorSelectElement = (function () {
             return
           }
 
-          if (attribute === 'multiple') {
-            return this.emit('state.change', {
+          switch (attribute) {
+            case 'multiple': return this.emit('state.change', {
               name: 'multiple',
               value: this.multiple
             })
+
+            case 'placeholder':
+              if (this.selectedOptionsElement) {
+                this.selectedOptionsElement.update();
+              }
+
+              break
           }
         },
 
@@ -67,25 +70,23 @@ var AuthorSelectElement = (function () {
       return ['autofocus', 'disabled', 'multiple', 'name', 'open', 'placeholder', 'tabindex', 'size']
     }
 
-    // get afterChange () {
-    //   return this.PRIVATE.middleware.afterChange
-    // }
-    //
-    // set afterChange (func) {
-    //   this.PRIVATE.middleware.afterChange = func.bind(this)
-    // }
-    //
-    // get beforeChange () {
-    //   return this.PRIVATE.middleware.beforeChange
-    // }
-    //
-    // set beforeChange (func) {
-    //   this.PRIVATE.middleware.beforeChange = func.bind(this)
-    // }
-
     clear () {
       super.clear();
       this.selectedOptionsElement.clear();
+    }
+
+    inject (sourceElement, labels = null) {
+      super.inject(sourceElement, labels);
+
+      if (sourceElement.localName === 'select') {
+        let selectedOptionsElement = document.createElement('author-selected-options');
+        selectedOptionsElement.slot = 'selectedoptions';
+        this.appendChild(selectedOptionsElement);
+
+        if (!this.multiple) {
+          this.selectedOptionsElement.add(this.optionsElement.options[this.selectedIndex]);
+        }
+      }
     }
   }
 

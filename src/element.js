@@ -22,10 +22,6 @@ class AuthorSelectElement extends AuthorMenuElement {
       }
     })
 
-    this.UTIL.definePrivateMethods({
-
-    })
-
     this.UTIL.registerListeners(this, {
       'attribute.change': evt => {
         let { attribute, oldValue, newValue } = evt.detail
@@ -34,11 +30,18 @@ class AuthorSelectElement extends AuthorMenuElement {
           return
         }
 
-        if (attribute === 'multiple') {
-          return this.emit('state.change', {
+        switch (attribute) {
+          case 'multiple': return this.emit('state.change', {
             name: 'multiple',
             value: this.multiple
           })
+
+          case 'placeholder':
+            if (this.selectedOptionsElement) {
+              this.selectedOptionsElement.update()
+            }
+
+            break
         }
       },
 
@@ -50,25 +53,23 @@ class AuthorSelectElement extends AuthorMenuElement {
     return ['autofocus', 'disabled', 'multiple', 'name', 'open', 'placeholder', 'tabindex', 'size']
   }
 
-  // get afterChange () {
-  //   return this.PRIVATE.middleware.afterChange
-  // }
-  //
-  // set afterChange (func) {
-  //   this.PRIVATE.middleware.afterChange = func.bind(this)
-  // }
-  //
-  // get beforeChange () {
-  //   return this.PRIVATE.middleware.beforeChange
-  // }
-  //
-  // set beforeChange (func) {
-  //   this.PRIVATE.middleware.beforeChange = func.bind(this)
-  // }
-
   clear () {
     super.clear()
     this.selectedOptionsElement.clear()
+  }
+
+  inject (sourceElement, labels = null) {
+    super.inject(sourceElement, labels)
+
+    if (sourceElement.localName === 'select') {
+      let selectedOptionsElement = document.createElement('author-selected-options')
+      selectedOptionsElement.slot = 'selectedoptions'
+      this.appendChild(selectedOptionsElement)
+
+      if (!this.multiple) {
+        this.selectedOptionsElement.add(this.optionsElement.options[this.selectedIndex])
+      }
+    }
   }
 }
 

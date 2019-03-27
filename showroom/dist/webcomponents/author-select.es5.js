@@ -1,6 +1,6 @@
 // Copyright (c) 2019 Author.io. MIT licensed.
-// @author.io/element-select v1.0.7 available at github.com/author-elements/select
-// Last Build: 3/26/2019, 11:45:17 PM
+// @author.io/element-select v1.0.8 available at github.com/author-elements/select
+// Last Build: 3/27/2019, 12:05:30 AM
 var AuthorSelectElement = (function () {
   'use strict';
 
@@ -109,7 +109,7 @@ var AuthorSelectElement = (function () {
   }
 
   (function () {
-    var missingDependencies = Array.from(new Set(['author-selected-options', 'author-options', 'author-option', 'author-optgroup', 'author-optgroup-label'])).filter(function (dep) {
+    var missingDependencies = Array.from(new Set(['author-menu', 'author-selected-options', 'author-options', 'author-option', 'author-optgroup', 'author-optgroup-label'])).filter(function (dep) {
       return !customElements.get(dep);
     });
 
@@ -157,8 +157,6 @@ var AuthorSelectElement = (function () {
         }
       });
 
-      _this.UTIL.definePrivateMethods({});
-
       _this.UTIL.registerListeners(_assertThisInitialized(_this), {
         'attribute.change': function attributeChange(evt) {
           var _evt$detail = evt.detail,
@@ -170,11 +168,19 @@ var AuthorSelectElement = (function () {
             return;
           }
 
-          if (attribute === 'multiple') {
-            return _this.emit('state.change', {
-              name: 'multiple',
-              value: _this.multiple
-            });
+          switch (attribute) {
+            case 'multiple':
+              return _this.emit('state.change', {
+                name: 'multiple',
+                value: _this.multiple
+              });
+
+            case 'placeholder':
+              if (_this.selectedOptionsElement) {
+                _this.selectedOptionsElement.update();
+              }
+
+              break;
           }
         },
         'options.selected': function optionsSelected(evt) {
@@ -187,25 +193,27 @@ var AuthorSelectElement = (function () {
 
     _createClass(AuthorSelectElement, [{
       key: "clear",
-      // get afterChange () {
-      //   return this.PRIVATE.middleware.afterChange
-      // }
-      //
-      // set afterChange (func) {
-      //   this.PRIVATE.middleware.afterChange = func.bind(this)
-      // }
-      //
-      // get beforeChange () {
-      //   return this.PRIVATE.middleware.beforeChange
-      // }
-      //
-      // set beforeChange (func) {
-      //   this.PRIVATE.middleware.beforeChange = func.bind(this)
-      // }
       value: function clear() {
         _get(_getPrototypeOf(AuthorSelectElement.prototype), "clear", this).call(this);
 
         this.selectedOptionsElement.clear();
+      }
+    }, {
+      key: "inject",
+      value: function inject(sourceElement) {
+        var labels = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+        _get(_getPrototypeOf(AuthorSelectElement.prototype), "inject", this).call(this, sourceElement, labels);
+
+        if (sourceElement.localName === 'select') {
+          var selectedOptionsElement = document.createElement('author-selected-options');
+          selectedOptionsElement.slot = 'selectedoptions';
+          this.appendChild(selectedOptionsElement);
+
+          if (!this.multiple) {
+            this.selectedOptionsElement.add(this.optionsElement.options[this.selectedIndex]);
+          }
+        }
       }
     }], [{
       key: "observedAttributes",

@@ -12,6 +12,7 @@ const banner = `// Copyright (c) ${(new Date()).getFullYear()} ${pkg.author.name
 
 const options = {
 	dependencies: [
+		'author-menu',
 		'author-selected-options',
 		'author-options',
 		'author-option',
