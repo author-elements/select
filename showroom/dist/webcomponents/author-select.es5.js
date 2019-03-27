@@ -1,6 +1,6 @@
 // Copyright (c) 2019 Author.io. MIT licensed.
-// @author.io/element-select v1.0.8 available at github.com/author-elements/select
-// Last Build: 3/27/2019, 12:05:30 AM
+// @author.io/element-select v1.0.10 available at github.com/author-elements/select
+// Last Build: 3/27/2019, 12:18:12 AM
 var AuthorSelectElement = (function () {
   'use strict';
 
@@ -101,6 +101,26 @@ var AuthorSelectElement = (function () {
     }
 
     return _get(target, property, receiver || target);
+  }
+
+  function _toConsumableArray(arr) {
+    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+  }
+
+  function _arrayWithoutHoles(arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+      return arr2;
+    }
+  }
+
+  function _iterableToArray(iter) {
+    if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+  }
+
+  function _nonIterableSpread() {
+    throw new TypeError("Invalid attempt to spread non-iterable instance");
   }
 
   if (!window.hasOwnProperty('AuthorBaseElement')) {
@@ -218,7 +238,7 @@ var AuthorSelectElement = (function () {
     }], [{
       key: "observedAttributes",
       get: function get() {
-        return ['autofocus', 'disabled', 'multiple', 'name', 'open', 'placeholder', 'tabindex', 'size'];
+        return [].concat(_toConsumableArray(AuthorMenuElement.observedAttributes), ['multiple']);
       }
     }]);
 

@@ -1,6 +1,6 @@
 // Copyright (c) 2019 Author.io. MIT licensed.
-// @author.io/element-select v1.0.8 available at github.com/author-elements/select
-// Last Build: 3/27/2019, 12:05:30 AM
+// @author.io/element-select v1.0.10 available at github.com/author-elements/select
+// Last Build: 3/27/2019, 12:18:12 AM
 var AuthorSelectElement = (function () {
   'use strict';
 
@@ -67,7 +67,7 @@ var AuthorSelectElement = (function () {
     }
 
     static get observedAttributes () {
-      return ['autofocus', 'disabled', 'multiple', 'name', 'open', 'placeholder', 'tabindex', 'size']
+      return [...AuthorMenuElement.observedAttributes, 'multiple']
     }
 
     clear () {
