@@ -63,7 +63,11 @@ class AuthorSelectElement extends AuthorMenuElement {
       this.appendChild(selectedOptionsElement)
 
       if (!this.multiple) {
-        this.selectedOptionsElement.add(this.optionsElement.options[this.selectedIndex])
+        let selectedOption = this.optionsElement.options[this.selectedIndex]
+
+        if (selectedOption) {
+          this.selectedOptionsElement.add(selectedOption);
+        }
       }
     }
   }
