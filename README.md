@@ -1,3 +1,7 @@
+# DEPRECATED
+
+For accessibility and UX reasons, it is better to simply use default `<select>` elements and style them manually.
+
 # AuthorSelectElement [![](https://data.jsdelivr.com/v1/package/npm/@author.io/element-select/badge)](https://www.jsdelivr.com/package/npm/@author.io/element-select?path=dist) [![Build Status](https://travis-ci.org/author-elements/select.svg?branch=master&style=for-the-badge)](https://travis-ci.org/author-elements/select)
 
 `author-select` is a fully-stylable select menu component. It is designed to match the functionality of browser default select menus while providing flexibility for customization if desired.
